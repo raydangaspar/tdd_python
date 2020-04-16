@@ -22,12 +22,17 @@ class Leilao:
 
     def __init__(self, descricao):
         self.descricao = descricao
-        self.__lances = []
+        # self.__lances = []
+        self.__lances = set()
+
+    # reduz acoplamento
+    def propoe(self, lance: Lance): # diga, não pergunte
+        # self.__lances.append(lance)
+        self.__lances.add(lance)
 
     @property  # para acessar o atributo privado
     def lances(self):
         return self.__lances
-
 
 class Avaliador:
 
