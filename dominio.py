@@ -22,17 +22,19 @@ class Leilao:
 
     def __init__(self, descricao):
         self.descricao = descricao
-        # self.__lances = []
-        self.__lances = set()
+        self.__lances = []
+        # self.__lances = set()
 
     # reduz acoplamento
     def propoe(self, lance: Lance): # diga, não pergunte
-        # self.__lances.append(lance)
-        self.__lances.add(lance)
+        self.__lances.append(lance)
+        # self.__lances.add(lance)
 
     @property  # para acessar o atributo privado
     def lances(self):
-        return self.__lances
+        # return self.__lances    # estamos devolvendo o mesmo endereço de memória da lista criada
+        # vamos devolver uma cópia dessa lista
+        return self.__lances[:]  # cópia rasa de lista
 
 class Avaliador:
 
