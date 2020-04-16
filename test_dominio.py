@@ -1,4 +1,4 @@
-# alt + enter em cima da palavra em vermelhor, mostra e coloca a biblioteca que falta importar
+# alt + enter em cima da palavra em vermelho, mostra e coloca a biblioteca que falta importar
 # ctrl+ shift + t em cima do nome da classe que se deseja fazer o teste unitário
 from unittest import TestCase
 from dominio import Usuario, Lance, Leilao, Avaliador
@@ -6,6 +6,7 @@ from dominio import Usuario, Lance, Leilao, Avaliador
 
 class TestAvaliador(TestCase):  # herda de TestCase
 
+    # método setUp é herdado da classe TestCase
     # quando coloca self na frente do atributo, significa que é um atributo da classe
     # setUp método da classe unittest que já invoca o setup antes de todos os testes
     # serve para isolar o cenário comum de todos os testes
