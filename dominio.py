@@ -1,6 +1,8 @@
 import sys
 
 
+# primeira regra de negócio: um usuário não pode dar dois lances seguidos
+# segunda regra de negócio: não posso dar um lance menor ou igual que o lance anterior
 class Usuario:
 
     def __init__(self, nome):
@@ -31,12 +33,16 @@ class Leilao:
 
     # reduz acoplamento
     def propoe(self, lance: Lance):  # diga, não pergunte
-        if lance.valor > self.maior_lance:
-            self.maior_lance = lance.valor
-        if lance.valor < self.menor_lance:
-            self.menor_lance = lance.valor
-        self.__lances.append(lance)
-        # self.__lances.add(lance)
+        # lances[-1].usuario pega o último lance da lista
+        # if len(self.__lances) == 0 or self.lances[-1].usuario != lance.usuario:
+        # self.__lances retorna true se tiver algum item dentro
+        if not self.__lances or self.lances[-1].usuario != lance.usuario:  # jeito paythonico
+            if lance.valor > self.maior_lance:
+                self.maior_lance = lance.valor
+            if lance.valor < self.menor_lance:
+                self.menor_lance = lance.valor
+            self.__lances.append(lance)
+            # self.__lances.add(lance)
 
     @property  # para acessar o atributo privado
     def lances(self):
