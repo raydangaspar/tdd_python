@@ -43,6 +43,8 @@ class Leilao:
                 self.menor_lance = lance.valor
             self.__lances.append(lance)
             # self.__lances.add(lance)
+        else:
+            raise ValueError('O mesmo usuário não pode propor dois lances seguidos')
 
     @property  # para acessar o atributo privado
     def lances(self):
