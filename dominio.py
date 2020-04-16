@@ -36,7 +36,8 @@ class Leilao:
         # lances[-1].usuario pega o último lance da lista
         # if len(self.__lances) == 0 or self.lances[-1].usuario != lance.usuario:
         # self.__lances retorna true se tiver algum item dentro
-        if not self.__lances or self.lances[-1].usuario != lance.usuario:  # jeito paythonico
+        # um lance só pode ser aprovado se for maior que o lance anterior
+        if not self.__lances or self.lances[-1].usuario != lance.usuario and lance.valor > self.__lances[-1].valor:  # jeito paythonico
             if lance.valor > self.maior_lance:
                 self.maior_lance = lance.valor
             if lance.valor < self.menor_lance:
@@ -44,7 +45,7 @@ class Leilao:
             self.__lances.append(lance)
             # self.__lances.add(lance)
         else:
-            raise ValueError('O mesmo usuário não pode propor dois lances seguidos')
+            raise ValueError('Erro ao propor lance')
 
     @property  # para acessar o atributo privado
     def lances(self):
