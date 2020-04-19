@@ -1,5 +1,8 @@
 # primeira regra de negócio: um usuário não pode dar dois lances seguidos
 # segunda regra de negócio: não posso dar um lance menor ou igual que o lance anterior
+from excecoes import LanceInvalido
+
+
 class Usuario:
 
     def __init__(self, nome, carteira):
@@ -8,7 +11,7 @@ class Usuario:
 
     def propoe_lance(self, leilao, valor):
         if not self._valor_eh_valido(valor):
-            raise ValueError('Não pode propor um lance com valor maior que  valor da carteira')
+            raise LanceInvalido('Não pode propor um lance com valor maior que  valor da carteira')
 
         lance = Lance(self, valor)
         leilao.propoe(lance)
@@ -57,8 +60,6 @@ class Leilao:
 
             self.__lances.append(lance)
             # self.__lances.add(lance)
-        else:
-            raise ValueError('Erro ao propor lance')
 
     @property  # para acessar o atributo privado
     def lances(self):
@@ -70,10 +71,14 @@ class Leilao:
         return self.__lances
 
     def _usuarios_diferentes(self, lance):
-        return self.__lances[-1].usuario != lance.usuario
+        if self.__lances[-1].usuario != lance.usuario:
+            return True
+        raise LanceInvalido('O mesmo usuário não pode dar dois lances seguidos')
 
     def _valor_maior_que_lance_anterior(self, lance):
-        return lance.valor > self.__lances[-1].valor
+        if lance.valor > self.__lances[-1].valor:
+            return True
+        raise LanceInvalido('O valor do lance deve ser maior que o lance anterior')
 
     def _lance_eh_valido(self, lance):
         return not self._tem_lances() or (self._usuarios_diferentes(lance) and
